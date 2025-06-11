@@ -53,7 +53,7 @@ def index():
             output_path = os.path.join(PROCESSED_FOLDER, output_filename)
             cv2.imwrite(output_path, imgWarp)
 
-            return render_template("result.html",
+            return render_template("index.html",
                                    image_path=output_path,
                                    measurements=measurements)
 
