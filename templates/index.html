@@ -9,24 +9,28 @@
     <div class="container">
         <h1>📏 Object Measurement</h1>
 
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
         <form action="/" method="post" enctype="multipart/form-data">
             <input type="file" name="image" accept="image/*" required>
             <button type="submit">Upload & Measure</button>
         </form>
 
-        {% if image_name %}
-            <h2>Uploaded Image:</h2>
-            <img src="{{ url_for('uploaded_file', filename=image_name) }}" alt="Uploaded Image" width="400px">
+        {% if image_path %}
+            <h2>Processed Image:</h2>
+            <img src="{{ image_path }}" alt="Processed Image">
         {% endif %}
 
-        {% if dimensions %}
+        {% if measurements %}
             <h2>Measured Dimensions:</h2>
             <ul>
-                {% for dim in dimensions %}
-                    <li><strong>Width:</strong> {{ dim.width }} cm, <strong>Height:</strong> {{ dim.height }} cm</li>
+                {% for dim in measurements %}
+                    <li><strong>Width:</strong> {{ dim[0] }} cm, <strong>Height:</strong> {{ dim[1] }} cm</li>
                 {% endfor %}
             </ul>
-        {% elif dimensions is not none %}
+        {% elif measurements is not none %}
             <p>No measurable objects detected in the image.</p>
         {% endif %}
     </div>
